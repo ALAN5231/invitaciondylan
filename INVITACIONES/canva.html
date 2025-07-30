@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Shower - Invitación Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #FFF8DC 0%, #E3F2FD 50%, #D9F2E6 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 248, 220, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(217, 242, 230, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(227, 242, 253, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 248, 220, 0.5);
+        }
+
+        .pooh-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: #FFD700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+
+        .pooh-icon::before {
+            content: '🍯';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 30px;
+            background: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-title {
+            font-size: 1.6rem;
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.3;
+        }
+
+        .baby-name {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            display: block;
+            padding: 8px 15px;
+            border-radius: 15px;
+            border: 2px dashed #FFD700;
+            margin: 10px 0;
+            font-size: 1.8rem;
+        }
+
+        .event-date {
+            font-size: 1.3rem;
+            color: #2E8B57;
+            margin-top: 15px;
+            font-weight: 600;
+            background: rgba(217, 242, 230, 0.5);
+            padding: 12px 20px;
+            border-radius: 15px;
+            display: block;
+            line-height: 1.4;
+        }
+
+        .countdown-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(227, 242, 253, 0.5);
+        }
+
+        .countdown-title {
+            font-size: 1.3rem;
+            color: #4682B4;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .countdown-timer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .time-unit {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            padding: 15px 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .time-unit:hover {
+            transform: translateY(-5px);
+        }
+
+        .time-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 0.8rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+
+        .details-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(217, 242, 230, 0.5);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: #8B4513;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '🌿';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+        }
+
+        .section-title::before {
+            content: '🌿';
+            position: absolute;
+            left: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+        }
+
+        .detail-item {
+            display: block;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 248, 220, 0.4);
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .detail-item:hover {
+            transform: scale(1.02);
+            background: rgba(255, 248, 220, 0.6);
+        }
+
+        .detail-icon {
+            font-size: 1.8rem;
+            color: #2E8B57;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .detail-text {
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .map-button {
+            background: linear-gradient(135deg, #2E8B57, #228B22);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .map-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 139, 87, 0.4);
+        }
+
+        .rsvp-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 248, 220, 0.5);
+        }
+
+        .rsvp-form {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            color: #8B4513;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .gallery-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(227, 242, 253, 0.5);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #FFF8DC, #E3F2FD);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(217, 242, 230, 0.5);
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-honey {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        .floating-honey:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-honey:nth-child(2) { top: 20%; right: 15%; animation-delay: 2s; }
+        .floating-honey:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+        .floating-honey:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 1s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .editable {
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .editable:hover {
+            background-color: rgba(255, 215, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .edit-indicator {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #FFD700;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .editable:hover .edit-indicator {
+            display: flex;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 8px;
+            }
+            
+            .main-title {
+                font-size: 1.4rem;
+            }
+            
+            .baby-name {
+                font-size: 1.6rem;
+            }
+            
+            .event-date {
+                font-size: 1.1rem;
+                padding: 10px 15px;
+            }
+            
+            .section-title::before,
+            .section-title::after {
+                display: none;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .gallery-item {
+                font-size: 2rem;
+            }
+            
+            .pooh-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-honey">🍯</div>
+        <div class="floating-honey">🐻</div>
+        <div class="floating-honey">🌿</div>
+        <div class="floating-honey">🍯</div>
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <!-- <div class="pooh-icon">🐻</div> -->
+            <div class="pooh-icon">
+                <img src="pooh.png" alt="Pooh" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+            </div>
+            <!-- ...existing code... -->
+            <h1 class="main-title editable" onclick="editText(this)">
+                Estás invitado al Baby Shower de 
+                <span class="baby-name editable" onclick="editText(this)">Dylan Said</span>
+                </h1>
+            <div class="event-date editable" onclick="editText(this)">
+                SOLO CHICAS!
+                </div>
+        </div>
+
+        <!-- Countdown Section -->
+    <div class="countdown-section">
+        <h2 class="countdown-title">¡Faltan muy pocos días!</h2>
+        <div class="countdown-timer" id="countdown">
+            <div class="time-unit">
+                <span class="time-number" id="days">00</span>
+                <span class="time-label">Días</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="hours">00</span>
+                <span class="time-label">Horas</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="minutes">00</span>
+                <span class="time-label">Minutos</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="seconds">00</span>
+                <span class="time-label">Segundos</span>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- Event Details Section -->
+        <div class="details-section">
+            <h2 class="section-title">Detalles del Evento</h2>
+            <div class="detail-item">
+                <i class="fas fa-map-marker-alt detail-icon"></i>
+                <div class="detail-text">
+                    <strong>Ubicación:</strong><br>
+                    <span class="editable" onclick="editText(this)">
+                        Casa de la Cultura<br>
+                        Ébano 133, Viveros Xalostoc<br>
+                        Ecatepec de Morelos, Méx, CP 55340.
+                                </span>
+                    <br>
+                    <a href="https://www.google.com/maps/place/%C3%89bano+133,+Viveros+Xalostoc,+55348+Ecatepec+de+Morelos,+M%C3%A9x./@19.5182189,-99.0958587,15z/data=!3m1!4b1!4m10!1m2!2m1!1sebano+133+colonia+viveros+xalostoc!3m6!1s0x85d1fa6d644ac5bb:0x3aa867a1c5c93444!8m2!3d19.5181996!4d-99.0774046!15sCiJlYmFubyAxMzMgY29sb25pYSB2aXZlcm9zIHhhbG9zdG9jkgERY29tcG91bmRfYnVpbGRpbmfgAQA!16s%2Fg%2F11c2gy2v4s?entry=ttu&g_ep=EgoyMDI1MDcyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-button">
+                        <i class="fas fa-map"></i> Ver en Google Maps
+                    </a>
+                </div>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar-alt detail-icon"></i>
+                <div class="detail-text">
+                    <strong>Fecha y Hora:</strong><br>
+                    <span class="editable" onclick="editText(this)">
+                        Sábado, 30 de agosto de 2025<br>
+                        4:30 PM
+                                </span>
+                </div>
+            </div>
+           <div class="detail-item">
+    <i class="fas fa-triangle-exclamation detail-icon"></i>
+    <div class="detail-text">
+        <strong>Importante:</strong><br>
+        <span class="editable" onclick="editText(this)">
+            A PARTIR DE LAS 7:00 PM, PUEDEN ENTRAR TODAS LAS PERSONAS A LA APERTURA DE REGALOS, COMIDA Y CELEBRACIÓN<br>
+
+        </span>
+    </div>
+</div>
+        </div>
+
+        <!-- RSVP Section -->
+        <div class="rsvp-section">
+            <h2 class="section-title">Confirma tu Asistencia</h2>
+            <form class="rsvp-form" onsubmit="handleRSVP(event)">
+                
+                <div class="form-group">
+                    <label class="form-label" for="attendance">¿Asistirás?</label>
+                    <select id="attendance" class="form-select" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="si">Sí, asistiré</option>
+                        <option value="no">No podré asistir</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-button">
+                    <i class="fas fa-heart"></i> Confirmar Asistencia
+                </button>
+            </form>
+        </div>
+
+
+        <!-- Footer -->
+        <div class="footer">
+            <p class="footer-text editable" onclick="editText(this)">
+                                                                                  
+                
+                ¡Gracias por ser parte de este momento tan especial!<br>
+                        Diana & Diego<br>
+                                </span>
+                    <br>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+    const eventDate = new Date('2025-08-30T16:30:00').getTime();
+    const now = new Date().getTime();
+    const distance = eventDate - now;
+
+    if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    } else {
+        document.getElementById('countdown').innerHTML = `
+            <div class="time-unit" style="grid-column: span 2;">
+                <span class="time-number">¡Ya llegó!</span>
+                <span class="time-label">El día especial</span>
+            </div>`;
+    }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+
+        // Edit text functionality
+        function editText(element) {
+            const currentText = element.textContent.replace('✏️', '').trim();
+            const newText = prompt('Editar texto:', currentText);
+            if (newText !== null && newText.trim() !== '') {
+                element.innerHTML = newText ;
+            }
+        }
+
+        // RSVP Form Handler
+        function handleRSVP(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('guestName').value;
+            const attendance = document.getElementById('attendance').value;
+            const guests = document.getElementById('guests').value;
+            const comments = document.getElementById('comments').value;
+
+            // Create WhatsApp message
+            const message = `¡Hola! Confirmo mi asistencia al Baby Shower de Sebastián:
+            
+Nombre: ${name}
+Asistiré: ${attendance === 'si' ? 'Sí' : 'No'}
+Acompañantes: ${guests}
+${comments ? 'Comentarios: ' + comments : ''}
+
+¡Gracias por la invitación! 🐻🍯`;
+
+            const whatsappUrl = `https://wa.me/5255512345678?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Show confirmation
+            alert('¡Gracias por confirmar! Te redirigiremos a WhatsApp para enviar tu confirmación.');
+        }
+
+        // Gallery image changer
+        const galleryEmojis = ['🐻', '🍯', '🌳', '🎈', '👶', '🧸', '🌿', '🎁', '💛', '🌸'];
+        
+        function changeGalleryImage(element) {
+            const randomEmoji = galleryEmojis[Math.floor(Math.random() * galleryEmojis.length)];
+            element.textContent = randomEmoji;
+            element.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections
+            document.querySelectorAll('.header, .countdown-section, .details-section, .rsvp-section, .gallery-section, .footer').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+
+            // Add click sound effect (optional)
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('editable') || e.target.closest('.editable')) {
+                    // Visual feedback for editable elements
+                    const element = e.target.classList.contains('editable') ? e.target : e.target.closest('.editable');
+                    element.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        element.style.transform = 'scale(1)';
+                    }, 150);
+                }
+            });
+        });
+
+        // Color theme changer (bonus feature)
+        function changeTheme() {
+            const themes = [
+                { primary: '#FFD700', secondary: '#FFA500', accent: '#2E8B57' },
+                { primary: '#FF69B4', secondary: '#FFB6C1', accent: '#8B008B' },
+                { primary: '#87CEEB', secondary: '#B0E0E6', accent: '#4682B4' }
+            ];
+            
+            const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+            document.documentElement.style.setProperty('--primary-color', randomTheme.primary);
+            document.documentElement.style.setProperty('--secondary-color', randomTheme.secondary);
+            document.documentElement.style.setProperty('--accent-color', randomTheme.accent);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9671bc6045d637ff',t:'MTc1Mzg0NTc5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
